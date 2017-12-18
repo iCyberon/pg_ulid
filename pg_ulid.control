@@ -1,0 +1,4 @@
+comment = 'pg_ulid'
+default_version = '1.0'
+
+relocatable = true
