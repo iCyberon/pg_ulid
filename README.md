@@ -1,7 +1,7 @@
 # pg_ulid
 Universally Unique Lexicographically Sortable Identifier (ULID) for PostgreSQL
 
-Experimental PostgreSQL extension for generating ULIDs built by go ([cgo](https://golang.org/cmd/cgo/)). 
+Experimental PostgreSQL extension for generating ULIDs.
 
 ## Install
 You need to have go and compiler (clang/gcc) installed on your system.
@@ -21,7 +21,7 @@ CREATE EXTENSION pg_ulid;
 
 ## Usage
 
-Now you can start generating ULIDs from PostgreSQL by calling `ulid`. Function returns one column `TEXT`
+Now you can start generating ULIDs from PostgreSQL by calling `ulid`. Function returns `TEXT`
 ```sql
 SELECT ulid(); -- 01C1P15MBWYBWDG2WYRG08VCFR
 SELECT pg_typeof(ulid()); -- text
@@ -31,3 +31,7 @@ SELECT pg_typeof(ulid()); -- text
 
 - [ ] Add binary support
 - [ ] Add tests
+
+## Credits
+
+All credits go to [ulid](https://github.com/oklog/ulid) and [plgo](https://github.com/microo8/plgo)
