@@ -8,7 +8,6 @@ package main
 #include "utils/elog.h"
 #include "utils/builtins.h"
 #include "utils/date.h"
-#include "utils/nabstime.h"
 #include "utils/timestamp.h"
 #include "datatype/timestamp.h"
 
@@ -76,8 +75,8 @@ func tstzToDatum(val time.Time) Datum {
 	return (Datum)(C.timestamptz_to_datum(C.TimestampTz((val.Unix() - 946684800) * int64(C.USECS_PER_SEC))))
 }
 
-func getArgText(fcinfo *C.FunctionCallInfoData, n int) string {
-	return C.GoString(C.datum_to_cstring(C.get_arg((*C.struct_FunctionCallInfoData)(unsafe.Pointer(fcinfo)), C.uint(n))))
+func getArgText(fcinfo *C.FunctionCallInfoBaseData, n int) string {
+	return C.GoString(C.datum_to_cstring(C.get_arg((*C.struct_FunctionCallInfoBaseData)(unsafe.Pointer(fcinfo)), C.uint(n))))
 }
 
 type elogLevel int

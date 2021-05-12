@@ -1,3 +1,7 @@
+# Fork
+
+This will only work against Postgresql > 12.
+
 # pg_ulid
 Universally Unique Lexicographically Sortable Identifier (ULID) for PostgreSQL
 
