@@ -22,7 +22,7 @@ func Ulid() Datum {
 }
 
 //export UlidToTime
-func UlidToTime(fcinfo *C.FunctionCallInfoData) Datum {
+func UlidToTime(fcinfo *C.FunctionCallInfoBaseData) Datum {
 	logger := NewErrorLogger("", log.Ltime|log.Lshortfile)
 	id, err := ulid.Parse(getArgText(fcinfo, 0))
 	if err != nil {
@@ -32,7 +32,7 @@ func UlidToTime(fcinfo *C.FunctionCallInfoData) Datum {
 }
 
 //export UlidToLocalTime
-func UlidToLocalTime(fcinfo *C.FunctionCallInfoData) Datum {
+func UlidToLocalTime(fcinfo *C.FunctionCallInfoBaseData) Datum {
 	logger := NewErrorLogger("", log.Ltime|log.Lshortfile)
 	id, err := ulid.Parse(getArgText(fcinfo, 0))
 	if err != nil {
