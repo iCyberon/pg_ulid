@@ -1,0 +1,42 @@
+name: Build
+
+on:
+  push:
+    branches: [master]
+  pull_request:
+    branches: [master]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    strategy:
+      matrix:
+        go-version: ['1.16', '1.21']
+        postgresql-version: ['13', '14', '15', '16']
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Set up Go
+        uses: actions/setup-go@v5
+        with:
+          go-version: ${{ matrix.go-version }}
+
+      - name: Install PostgreSQL ${{ matrix.postgresql-version }} dev headers
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y postgresql-server-dev-${{ matrix.postgresql-version }}
+
+      - name: Verify Go modules
+        run: go mod verify
+
+      - name: Check module tidiness
+        run: |
+          go mod tidy
+          git diff --exit-code go.mod go.sum
+
+      - name: Build extension
+        run: make
+        env:
+          PG_CONFIG: /usr/lib/postgresql/${{ matrix.postgresql-version }}/bin/pg_config
